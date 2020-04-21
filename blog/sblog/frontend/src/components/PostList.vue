@@ -1,5 +1,5 @@
 <template>
-    <main class="container">
+    <main :key="getKey" class="container">
         <p id="lead">{{postCount}}件中 {{postRangeFirst}}~{{postRangeLast}}件を一覧表示</p>
         <section>
             <router-link :to="{name: 'detail', params: {id: post.id}}" v-for="post of postList" :key="post.id" class="post">
@@ -77,7 +77,14 @@ import {UPDATE_POSTS} from "./store/mutation-types";
             .then(data => {
                 this.postList = data
             })
-        }
+        },
+        getKey() {
+            return `${this.postCurrentPageNumber}${this.$route.query.keyword}${this.$route.query.category}`
+        },
+        mounted() {
+            document.title = `Blog`
+            document.querySelector('meta[name="description"]').setAttribute('content', 'ああああ')
+        },
     }
 </script>
 

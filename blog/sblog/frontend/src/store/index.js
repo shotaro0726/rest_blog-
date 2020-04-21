@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {UPDATE_POSTS} from "./mutation-types"
+import {UPDATE_POSTS, UPDATE_CATEGORIES} from "./mutation-types"
 
 Vue.use(Vuex)
 
@@ -8,6 +8,7 @@ export default new Vuex.Store({
   strict: true,
   state: {
     posts:{},
+    categories:[],
   },
   getters:{
     getPreviousURL(state){
@@ -37,15 +38,20 @@ export default new Vuex.Store({
     postList(state){
       return state.posts
     },
+    categoryList(state){
+      return state.categories
+    },
   },
   mutations: {
     [UPDATE_POSTS](state, payload){
       state.posts = payload
+      state.categories = payload
     },
   },
   actions: {
     [UPDATE_POSTS]({commit}, payload){
       commit(UPDATE_POSTS, payload)
+      commit(UPDATE_CATEGORIES, payload)
     },
   },
   modules: {
